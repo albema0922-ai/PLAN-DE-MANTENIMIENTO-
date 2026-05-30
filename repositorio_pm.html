@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mantenimiento Preventivo — Planta Cuautitlán</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0A1628;
+  --navy2:#0F2040;
+  --navy3:#162950;
+  --navy4:#1C3460;
+  --blue:#1565C0;
+  --blue2:#1E88E5;
+  --amber:#F59E0B;
+  --amber2:#FCD34D;
+  --green:#059669;
+  --red:#DC2626;
+  --white:#F0F4FF;
+  --gray1:#94A3B8;
+  --gray2:#475569;
+  --gray3:#1E293B;
+  --border:rgba(255,255,255,0.06);
+  --border2:rgba(255,255,255,0.1);
+  --border3:rgba(255,255,255,0.15);
+  --mono:'DM Mono',monospace;
+  --sans:'Sora',sans-serif;
+  --radius:10px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  background:var(--navy);
+  color:var(--white);
+  min-height:100vh;
+  line-height:1.6;
+}
+
+/* ── Grid bg texture ── */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size:48px 48px;
+  pointer-events:none;z-index:0;
+}
+
+/* ─────────── TOP NAV ─────────── */
+.topnav{
+  position:sticky;top:0;z-index:200;
+  background:rgba(10,22,40,0.92);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border2);
+  height:58px;
+  display:flex;align-items:center;
+  padding:0 2.5rem;gap:1rem;
+}
+.nav-logo{display:flex;align-items:center;gap:10px}
+.hex{
+  width:30px;height:30px;
+  background:var(--amber);
+  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
+  flex-shrink:0;
+}
+.nav-title{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--white);letter-spacing:.05em;text-transform:uppercase}
+.nav-sub{font-family:var(--mono);font-size:10px;color:var(--gray1)}
+.nav-breadcrumb{
+  margin-left:auto;
+  display:flex;align-items:center;gap:6px;
+  font-family:var(--mono);font-size:11px;color:var(--gray1);
+}
+.nav-breadcrumb .crumb-active{color:var(--amber)}
+.nav-breadcrumb .sep{color:var(--gray2)}
+.btn-back{
+  display:none;
+  align-items:center;gap:6px;
+  font-family:var(--mono);font-size:11px;
+  color:var(--amber);background:rgba(245,158,11,.08);
+  border:1px solid rgba(245,158,11,.3);
+  padding:5px 12px;border-radius:4px;
+  cursor:pointer;letter-spacing:.04em;
+  transition:background .15s;
+}
+.btn-back:hover{background:rgba(245,158,11,.16)}
+.btn-back svg{width:13px;height:13px}
+
+/* ─────────── SCREENS ─────────── */
+.screen{position:relative;z-index:1;display:none;animation:fadeUp .25s ease}
+.screen.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ─────────── SCREEN 1 — HOME ─────────── */
+.home-wrap{
+  min-height:calc(100vh - 58px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:3rem 2rem;
+  gap:3rem;
+}
+.home-hero{text-align:center}
+.home-eyebrow{
+  font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  color:var(--amber);text-transform:uppercase;margin-bottom:.75rem;
+}
+.home-h1{font-size:clamp(28px,5vw,52px);font-weight:700;line-height:1.1;margin-bottom:1rem}
+.home-h1 span{color:var(--amber)}
+.home-desc{font-size:15px;color:var(--gray1);max-width:480px;margin:0 auto;font-weight:300}
+
+.area-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.5rem;
+  width:100%;max-width:900px;
+}
+.area-card{
+  background:var(--navy2);
+  border:1px solid var(--border2);
+  border-radius:14px;
+  padding:2rem 1.5rem;
+  cursor:pointer;
+  transition:all .2s;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.area-card::before{
+  content:'';
+  position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 0%, rgba(245,158,11,.08) 0%, transparent 60%);
+  opacity:0;transition:opacity .2s;
+}
+.area-card:hover{
+  border-color:var(--amber);
+  transform:translateY(-4px);
+  box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 0 1px rgba(245,158,11,.2);
+}
+.area-card:hover::before{opacity:1}
+.area-card:active{transform:translateY(-2px)}
+.area-icon{
+  width:64px;height:64px;
+  margin:0 auto 1.25rem;
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+}
+.area-icon svg{width:32px;height:32px}
+.area-label{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:.25rem}
+.area-sublabel{font-family:var(--mono);font-size:10px;color:var(--gray1)}
+.area-count{
+  margin-top:1rem;
+  font-family:var(--mono);font-size:10px;
+  color:var(--amber);
+  display:inline-flex;align-items:center;gap:5px;
+}
+.area-count::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--amber)}
+.area-card-auto .area-icon{background:rgba(21,101,192,.2)}
+.area-card-auto .area-icon svg{color:#60A5FA}
+.area-card-mueblero .area-icon{background:rgba(5,150,105,.15)}
+.area-card-mueblero .area-icon svg{color:#34D399}
+.area-card-espumado .area-icon{background:rgba(245,158,11,.12)}
+.area-card-espumado .area-icon svg{color:var(--amber)}
+
+/* ─────────── SCREEN 2 — AREA DETAIL ─────────── */
+.detail-wrap{padding:2rem 2.5rem 4rem;max-width:1300px;margin:0 auto}
+.detail-header{margin-bottom:2rem}
+.detail-area-name{
+  font-size:clamp(20px,3vw,32px);font-weight:700;
+  display:flex;align-items:center;gap:12px;margin-bottom:.25rem;
+}
+.detail-area-name .area-pill{
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;padding:3px 10px;border-radius:3px;
+  background:rgba(245,158,11,.12);color:var(--amber);
+  border:1px solid rgba(245,158,11,.25);
+  vertical-align:middle;
+}
+.detail-sub{font-size:13px;color:var(--gray1);font-weight:300}
+
+.detail-cols{
+  display:grid;
+  grid-template-columns:340px 1fr;
+  gap:1.5rem;align-items:start;
+}
+
+/* ── Plan card ── */
+.plan-card{
+  background:var(--navy2);
+  border:1px solid var(--border2);
+  border-radius:var(--radius);
+  overflow:hidden;
+  position:sticky;top:74px;
+}
+.card-top{
+  background:var(--navy3);
+  border-bottom:1px solid var(--border);
+  padding:12px 16px;
+  display:flex;align-items:center;gap:8px;
+}
+.card-top-title{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray1)}
+.card-top svg{width:14px;height:14px;color:var(--amber)}
+.plan-pdf-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin:1rem;
+  padding:10px 14px;
+  background:rgba(245,158,11,.08);
+  border:1px solid rgba(245,158,11,.3);
+  border-radius:6px;
+  color:var(--amber);
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:none;cursor:pointer;
+  transition:background .15s;
+}
+.plan-pdf-btn:hover{background:rgba(245,158,11,.16)}
+.plan-pdf-btn svg{width:16px;height:16px}
+.plan-divider{margin:0 16px;border:none;border-top:1px solid var(--border);margin-bottom:4px}
+.plan-preview-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--gray2);
+  padding:8px 16px 4px;
+}
+.plan-month-row{
+  display:flex;align-items:center;gap:8px;
+  padding:6px 16px;border-bottom:1px solid var(--border);
+  transition:background .12s;
+}
+.plan-month-row:last-child{border-bottom:none}
+.plan-month-row:hover{background:rgba(255,255,255,.02)}
+.plan-month-label{
+  font-family:var(--mono);font-size:10px;color:var(--gray2);
+  width:32px;flex-shrink:0;letter-spacing:.06em;text-transform:uppercase;
+}
+.plan-tags{display:flex;gap:4px;flex-wrap:wrap;flex:1}
+.ptag{
+  font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px;
+  letter-spacing:.04em;font-weight:500;white-space:nowrap;
+}
+.ptag-pm {background:rgba(30,136,229,.2);color:#90CAF9;border:1px solid rgba(30,136,229,.3)}
+.ptag-pc {background:rgba(5,150,105,.18);color:#6EE7B7;border:1px solid rgba(5,150,105,.3)}
+.ptag-pa {background:rgba(245,158,11,.15);color:var(--amber2);border:1px solid rgba(245,158,11,.3)}
+.ptag-eq{
+  font-family:var(--mono);font-size:9px;padding:2px 6px;
+  border-radius:3px;background:rgba(255,255,255,.06);color:var(--gray1);
+  border:1px solid var(--border);letter-spacing:.03em;
+}
+.plan-legend{
+  padding:10px 16px;border-top:1px solid var(--border);
+  display:flex;gap:10px;flex-wrap:wrap;
+}
+.pleg{display:flex;align-items:center;gap:4px;font-family:var(--mono);font-size:9px;color:var(--gray2)}
+
+/* ── Equipment list ── */
+.equip-card{
+  background:var(--navy2);
+  border:1px solid var(--border2);
+  border-radius:var(--radius);
+  overflow:hidden;
+}
+.equip-search{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 16px;border-bottom:1px solid var(--border);
+}
+.equip-search svg{width:14px;height:14px;color:var(--gray2);flex-shrink:0}
+.equip-search input{
+  flex:1;background:transparent;border:none;outline:none;
+  font-family:var(--mono);font-size:12px;color:var(--white);letter-spacing:.03em;
+}
+.equip-search input::placeholder{color:var(--gray2)}
+
+.equip-row{
+  display:flex;align-items:center;gap:14px;
+  padding:12px 16px;
+  border-bottom:1px solid var(--border);
+  transition:background .12s;
+  cursor:pointer;
+}
+.equip-row:last-child{border-bottom:none}
+.equip-row:hover{background:rgba(255,255,255,.03)}
+
+.equip-row.is-critical{
+  border-left:3px solid var(--amber);
+  padding-left:13px;
+}
+.equip-row.is-standard{
+  border-left:3px solid transparent;
+}
+
+.equip-ico{
+  width:38px;height:38px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.equip-ico svg{width:20px;height:20px}
+.equip-ico.crit{background:rgba(245,158,11,.12)}
+.equip-ico.crit svg{color:var(--amber)}
+.equip-ico.std{background:rgba(30,136,229,.12)}
+.equip-ico.std svg{color:#60A5FA}
+
+.equip-info{flex:1;min-width:0}
+.equip-name{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.equip-code{font-family:var(--mono);font-size:10px;color:var(--gray1);margin-top:2px;letter-spacing:.05em}
+
+.equip-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.tag-crit{
+  display:flex;align-items:center;gap:4px;
+  font-family:var(--mono);font-size:10px;color:var(--amber);
+  background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);
+  padding:3px 8px;border-radius:3px;letter-spacing:.04em;
+}
+.tag-crit svg{width:10px;height:10px}
+.tag-std{
+  font-family:var(--mono);font-size:10px;color:#60A5FA;
+  background:rgba(30,136,229,.1);border:1px solid rgba(30,136,229,.2);
+  padding:3px 8px;border-radius:3px;letter-spacing:.04em;
+}
+.btn-guia{
+  display:flex;align-items:center;gap:5px;
+  font-family:var(--mono);font-size:10px;
+  color:#6EE7B7;
+  background:rgba(5,150,105,.1);border:1px solid rgba(5,150,105,.25);
+  padding:5px 11px;border-radius:4px;
+  text-decoration:none;cursor:pointer;
+  letter-spacing:.04em;transition:background .15s;
+}
+.btn-guia:hover{background:rgba(5,150,105,.2)}
+.btn-guia svg{width:12px;height:12px}
+
+.no-guide{
+  font-family:var(--mono);font-size:10px;color:var(--gray2);
+  padding:3px 8px;border:1px dashed var(--border2);border-radius:4px;
+  letter-spacing:.04em;
+}
+
+/* ── Legend row above list ── */
+.equip-legend{
+  display:flex;align-items:center;gap:14px;
+  padding:8px 16px;background:var(--navy3);border-bottom:1px solid var(--border);
+}
+.eleg{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;color:var(--gray2)}
+.eleg-dot{width:7px;height:7px;border-radius:50%}
+
+/* ── Empty placeholder ── */
+.coming-soon{
+  padding:4rem 2rem;text-align:center;
+  background:var(--navy2);border:1px solid var(--border2);border-radius:var(--radius);
+}
+.coming-icon{opacity:.15;margin-bottom:1rem}
+.coming-icon svg{width:52px;height:52px;color:var(--gray1)}
+.coming-title{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray1);margin-bottom:.5rem}
+.coming-sub{font-size:13px;color:var(--gray2);font-weight:300}
+
+/* ── Footer ── */
+.site-footer{
+  position:relative;z-index:1;
+  text-align:center;padding:1.5rem;
+  border-top:1px solid var(--border);margin-top:4rem;
+  font-family:var(--mono);font-size:10px;color:var(--gray2);letter-spacing:.06em;
+}
+
+/* ── Responsive ── */
+@media(max-width:900px){
+  .area-grid{grid-template-columns:1fr}
+  .detail-cols{grid-template-columns:1fr}
+  .plan-card{position:static}
+  .detail-wrap{padding:1.5rem 1rem 3rem}
+  .topnav{padding:0 1rem}
+}
+</style>
+</head>
+<body>
+
+<!-- ───────────── TOP NAV ───────────── -->
+<nav class="topnav">
+  <div class="nav-logo">
+    <div class="hex"></div>
+    <div>
+      <div class="nav-title">Mantenimiento Preventivo</div>
+      <div class="nav-sub">Planta Cuautitlán</div>
+    </div>
+  </div>
+  <div class="nav-breadcrumb" id="breadcrumb">
+    <span class="crumb-active">Inicio</span>
+  </div>
+  <button class="btn-back" id="btn-back" onclick="goHome()" aria-label="Regresar al inicio">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"/></svg>
+    Regresar
+  </button>
+</nav>
+
+<!-- ═══════════════ SCREEN 1 — HOME ═══════════════ -->
+<div class="screen active" id="screen-home">
+  <div class="home-wrap">
+    <div class="home-hero">
+      <div class="home-eyebrow">Repositorio de guías</div>
+      <h1 class="home-h1">Mantenimiento<br><span>Preventivo</span></h1>
+      <p class="home-desc">Selecciona un área para ver el plan anual y las guías de mantenimiento de cada equipo.</p>
+    </div>
+
+    <div class="area-grid">
+
+      <!-- AUTOMOTRIZ -->
+      <div class="area-card area-card-auto" onclick="openArea('auto')" role="button" tabindex="0" aria-label="Abrir área automotriz">
+        <div class="area-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3"/>
+            <rect x="9" y="11" width="14" height="10" rx="2"/>
+            <circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          </svg>
+        </div>
+        <div class="area-label">Área automotriz</div>
+        <div class="area-sublabel">Corte y manejo de materiales</div>
+        <div class="area-count" id="cnt-auto">4 equipos registrados</div>
+      </div>
+
+      <!-- MUEBLERO -->
+      <div class="area-card area-card-mueblero" onclick="openArea('mueblero')" role="button" tabindex="0" aria-label="Abrir área mueblero">
+        <div class="area-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M20 9V6a2 2 0 00-2-2H6a2 2 0 00-2 2v3"/>
+            <path d="M2 11v5a2 2 0 002 2h16a2 2 0 002-2v-5a1 1 0 00-1-1H3a1 1 0 00-1 1z"/>
+            <path d="M4 18v2M20 18v2M12 4v5"/>
+          </svg>
+        </div>
+        <div class="area-label">Área mueblero</div>
+        <div class="area-sublabel">Fabricación de muebles</div>
+        <div class="area-count" id="cnt-mueblero">Pendiente de registro</div>
+      </div>
+
+      <!-- ESPUMADO -->
+      <div class="area-card area-card-espumado" onclick="openArea('espumado')" role="button" tabindex="0" aria-label="Abrir área espumado">
+        <div class="area-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+            <path d="M8 12s1.5-2 4-2 4 2 4 2"/>
+            <path d="M9 9h.01M15 9h.01"/>
+          </svg>
+        </div>
+        <div class="area-label">Área espumado</div>
+        <div class="area-sublabel">Proceso de espumado</div>
+        <div class="area-count" id="cnt-espumado">Pendiente de registro</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ SCREEN 2 — ÁREA DETAIL ═══════════════ -->
+<div class="screen" id="screen-detail">
+  <div class="detail-wrap">
+
+    <div class="detail-header">
+      <div class="detail-area-name" id="detail-title">
+        Área <span class="area-pill" id="detail-pill"></span>
+      </div>
+      <div class="detail-sub" id="detail-sub"></div>
+    </div>
+
+    <div class="detail-cols">
+
+      <!-- LEFT — Plan anual -->
+      <div class="plan-card">
+        <div class="card-top">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
+            <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          <span class="card-top-title">Plan anual</span>
+        </div>
+        <a class="plan-pdf-btn" id="plan-pdf-link" href="#" target="_blank">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/>
+          </svg>
+          Descargar plan anual (PDF)
+        </a>
+        <hr class="plan-divider">
+        <div class="plan-preview-label">Resumen por mes</div>
+        <div id="plan-months-container"></div>
+        <div class="plan-legend">
+          <div class="pleg"><span class="ptag ptag-pm" style="font-size:8px">PM</span>Preventivo</div>
+          <div class="pleg"><span class="ptag ptag-pc" style="font-size:8px">PC</span>Predictivo</div>
+          <div class="pleg"><span class="ptag ptag-pa" style="font-size:8px">PA</span>Anual</div>
+        </div>
+      </div>
+
+      <!-- RIGHT — Equipos -->
+      <div class="equip-card">
+        <div class="card-top">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--amber)">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+          </svg>
+          <span class="card-top-title">Equipos del área</span>
+        </div>
+        <div class="equip-legend">
+          <div class="eleg"><div class="eleg-dot" style="background:var(--amber)"></div>Equipo crítico</div>
+          <div class="eleg"><div class="eleg-dot" style="background:#60A5FA"></div>Equipo estándar</div>
+          <div class="eleg" style="margin-left:auto">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--green)"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span style="color:var(--green)">= guía disponible</span>
+          </div>
+        </div>
+        <div class="equip-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <input type="text" placeholder="Buscar equipo o código..." oninput="filterEquip(this)" id="equip-search-input">
+        </div>
+        <div id="equip-list-container"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">
+  Repositorio PM · Planta Cuautitlán · 2025
+</footer>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// SVG ICONS
+// ─────────────────────────────────────────────────────────────────────────────
+const ICO = {
+  crane:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+    <line x1="12" y1="2" x2="12" y2="22"/><line x1="4" y1="6" x2="12" y2="2"/>
+    <line x1="4" y1="6" x2="4" y2="22"/><line x1="4" y1="14" x2="12" y2="14"/>
+    <rect x="2" y="18" width="4" height="4"/></svg>`,
+  saw:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+    <circle cx="12" cy="13" r="8"/>
+    <path d="M12 5V2M12 2l-2 3M12 2l2 3"/>
+    <line x1="12" y1="9" x2="12" y2="13"/><line x1="9.5" y1="10.5" x2="12" y2="13"/>
+    <line x1="14.5" y1="10.5" x2="12" y2="13"/></svg>`,
+  pack:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+    <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
+    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
+    <line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
+  gear:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>`,
+  motor:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+    <rect x="2" y="7" width="16" height="10" rx="2"/>
+    <path d="M18 9h3v6h-3M6 7V5M10 7V5M14 7V5M6 17v2M10 17v2M14 17v2"/></svg>`,
+  alert:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+    <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+  file:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+    <polyline points="14 2 14 8 20 8"/>
+    <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+    <polyline points="10 9 9 9 8 9"/></svg>`,
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ██  DATA — edita aquí para agregar áreas, equipos y plan anual  ██
+// ─────────────────────────────────────────────────────────────────────────────
+const AREAS = {
+  auto: {
+    label: 'Automotriz',
+    sub:   'Corte y manejo de materiales automotrices',
+    planPDF: 'planes/Plan_Anual_Automotriz_2025.pdf',   // ← ruta del PDF en tu repo
+    plan: [
+      { m:'ENE', items:[{t:'PM',k:'pm',eq:'GV'},{t:'PM',k:'pm',eq:'SV'}] },
+      { m:'FEB', items:[{t:'PC',k:'pc',eq:'SH'}] },
+      { m:'MAR', items:[{t:'PM',k:'pm',eq:'GV'},{t:'PM',k:'pm',eq:'RP'}] },
+      { m:'ABR', items:[{t:'PM',k:'pm',eq:'SV'}] },
+      { m:'MAY', items:[{t:'PM',k:'pm',eq:'GV'},{t:'PC',k:'pc',eq:'SH'}] },
+      { m:'JUN', items:[{t:'PM',k:'pm',eq:'RP'}] },
+      { m:'JUL', items:[{t:'PM',k:'pm',eq:'GV'},{t:'PM',k:'pm',eq:'SV'}] },
+      { m:'AGO', items:[{t:'PC',k:'pc',eq:'GV'},{t:'PA',k:'pa',eq:'RP'}] },
+      { m:'SEP', items:[{t:'PM',k:'pm',eq:'SH'}] },
+      { m:'OCT', items:[{t:'PM',k:'pm',eq:'GV'},{t:'PM',k:'pm',eq:'RP'}] },
+      { m:'NOV', items:[{t:'PM',k:'pm',eq:'SV'}] },
+      { m:'DIC', items:[{t:'PM',k:'pm',eq:'GV'},{t:'PC',k:'pc',eq:'SH'}] },
+    ],
+    equipos: [
+      {
+        name:     'Grúa viajera F&K',
+        code:     'COD-GV-001',
+        tag:      'GV',
+        critical: true,
+        icon:     'crane',
+        guide:    'guias/Guia_PM_GRUA_VIAJERA_v2.docx',  // ← ruta al archivo en tu repo
+      },
+      {
+        name:     'Sierra vertical F52-2',
+        code:     'TFFK-F52-2',
+        tag:      'SV',
+        critical: false,
+        icon:     'saw',
+        guide:    'guias/Guia_PM_Sierra_Vertical_F52-2.docx',
+      },
+      {
+        name:     'Sierra horizontal C67-1',
+        code:     'TFFK-C67-1',
+        tag:      'SH',
+        critical: false,
+        icon:     'saw',
+        guide:    'guias/Guia_PM_Sierra_Horizontal_C67-1.docx',
+      },
+      {
+        name:     'Empacadora Roll Pack 230',
+        code:     'FIL-RP-230',
+        tag:      'RP',
+        critical: true,
+        icon:     'pack',
+        guide:    'guias/Guia_PM_RollPack230_Filmatic.docx',
+      },
+    ],
+  },
+
+  // ── Agrega aquí los datos cuando los tengas ──────────────────────────────
+  mueblero: {
+    label:   'Mueblero',
+    sub:     'Fabricación de muebles',
+    planPDF: 'planes/Plan_Anual_Mueblero_2025.pdf',
+    plan:    [],   // ← llenar con el mismo formato que 'auto'
+    equipos: [],   // ← llenar con el mismo formato que 'auto'
+  },
+
+  espumado: {
+    label:   'Espumado',
+    sub:     'Proceso de espumado',
+    planPDF: 'planes/Plan_Anual_Espumado_2025.pdf',
+    plan:    [],
+    equipos: [],
+  },
+};
+
+// ─────────────────────────────────────────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────────────────────────────────────────
+let currentArea = null;
+
+function openArea(areaKey) {
+  const area = AREAS[areaKey];
+  if (!area) return;
+  currentArea = areaKey;
+
+  // Switch screens
+  document.getElementById('screen-home').classList.remove('active');
+  document.getElementById('screen-detail').classList.add('active');
+
+  // Nav state
+  document.getElementById('breadcrumb').innerHTML =
+    `<span>Inicio</span><span class="sep">/</span><span class="crumb-active">${area.label}</span>`;
+  document.getElementById('btn-back').style.display = 'flex';
+
+  // Header
+  document.getElementById('detail-title').innerHTML =
+    `Área <span class="area-pill">${area.label.toUpperCase()}</span>`;
+  document.getElementById('detail-sub').textContent = area.sub;
+
+  // Plan PDF button
+  const pdfLink = document.getElementById('plan-pdf-link');
+  pdfLink.href = area.planPDF;
+
+  // Plan months
+  renderPlan(area);
+
+  // Equipment list
+  document.getElementById('equip-search-input').value = '';
+  renderEquip(area);
+
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function goHome() {
+  document.getElementById('screen-detail').classList.remove('active');
+  document.getElementById('screen-home').classList.add('active');
+  document.getElementById('breadcrumb').innerHTML = `<span class="crumb-active">Inicio</span>`;
+  document.getElementById('btn-back').style.display = 'none';
+  currentArea = null;
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+// Keyboard support for area cards
+document.querySelectorAll('.area-card').forEach(card => {
+  card.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
+  });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RENDER — PLAN
+// ─────────────────────────────────────────────────────────────────────────────
+function renderPlan(area) {
+  const container = document.getElementById('plan-months-container');
+
+  if (!area.plan || area.plan.length === 0) {
+    container.innerHTML = `
+      <div style="padding:2rem;text-align:center;color:var(--gray2);font-family:var(--mono);font-size:11px;letter-spacing:.06em">
+        PLAN ANUAL PENDIENTE DE CARGA
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = area.plan.map(row => `
+    <div class="plan-month-row">
+      <span class="plan-month-label">${row.m}</span>
+      <div class="plan-tags">
+        ${row.items.map(it => `
+          <span class="ptag ptag-${it.k}">${it.t}</span>
+          <span class="ptag-eq">${it.eq}</span>
+        `).join('')}
+      </div>
+    </div>`).join('');
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// RENDER — EQUIPOS
+// ─────────────────────────────────────────────────────────────────────────────
+function renderEquip(area) {
+  const container = document.getElementById('equip-list-container');
+
+  if (!area.equipos || area.equipos.length === 0) {
+    container.innerHTML = `
+      <div class="coming-soon">
+        <div class="coming-icon">${ICO.gear}</div>
+        <div class="coming-title">Sin equipos registrados</div>
+        <div class="coming-sub">Proporciona la lista de equipos<br>para poblar esta área.</div>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML = area.equipos.map(e => `
+    <div class="equip-row ${e.critical ? 'is-critical' : 'is-standard'}"
+         data-search="${e.name.toLowerCase()} ${e.code.toLowerCase()}">
+      <div class="equip-ico ${e.critical ? 'crit' : 'std'}">${ICO[e.icon] || ICO.gear}</div>
+      <div class="equip-info">
+        <div class="equip-name">${e.name}</div>
+        <div class="equip-code">${e.code}</div>
+      </div>
+      <div class="equip-right">
+        ${e.critical
+          ? `<span class="tag-crit">${ICO.alert}Crítico</span>`
+          : `<span class="tag-std">Estándar</span>`
+        }
+        ${e.guide
+          ? `<a class="btn-guia" href="${e.guide}" target="_blank" title="Abrir guía de mantenimiento">
+               ${ICO.file} Guía
+             </a>`
+          : `<span class="no-guide">Sin guía</span>`
+        }
+      </div>
+    </div>`).join('');
+
+  updateHomeCount();
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SEARCH / FILTER
+// ─────────────────────────────────────────────────────────────────────────────
+function filterEquip(input) {
+  const q = input.value.toLowerCase();
+  document.querySelectorAll('#equip-list-container .equip-row').forEach(row => {
+    row.style.display = row.dataset.search.includes(q) ? '' : 'none';
+  });
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// UPDATE HOME COUNTERS
+// ─────────────────────────────────────────────────────────────────────────────
+function updateHomeCount() {
+  Object.entries(AREAS).forEach(([key, area]) => {
+    const el = document.getElementById('cnt-' + key);
+    if (!el) return;
+    if (area.equipos && area.equipos.length > 0) {
+      const crits = area.equipos.filter(e => e.critical).length;
+      el.textContent = `${area.equipos.length} equipos · ${crits} crítico${crits !== 1 ? 's' : ''}`;
+    } else {
+      el.textContent = 'Pendiente de registro';
+    }
+  });
+}
+
+updateHomeCount();
+</script>
+</body>
+</html>
