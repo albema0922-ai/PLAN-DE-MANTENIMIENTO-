@@ -9,153 +9,55 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --navy:#0A1628;
-  --navy2:#0F2040;
-  --navy3:#162950;
-  --navy4:#1C3460;
-  --blue:#1565C0;
-  --blue2:#1E88E5;
-  --amber:#F59E0B;
-  --amber2:#FCD34D;
-  --green:#059669;
-  --red:#DC2626;
-  --white:#F0F4FF;
-  --gray1:#94A3B8;
-  --gray2:#475569;
-  --gray3:#1E293B;
-  --border:rgba(255,255,255,0.06);
-  --border2:rgba(255,255,255,0.1);
-  --border3:rgba(255,255,255,0.15);
-  --mono:'DM Mono',monospace;
-  --sans:'Sora',sans-serif;
-  --radius:10px;
+  --navy:#0A1628;--navy2:#0F2040;--navy3:#162950;--navy4:#1C3460;
+  --blue:#1565C0;--blue2:#1E88E5;
+  --amber:#F59E0B;--amber2:#FCD34D;
+  --green:#059669;--red:#DC2626;
+  --white:#F0F4FF;--gray1:#94A3B8;--gray2:#475569;--gray3:#1E293B;
+  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);--border3:rgba(255,255,255,0.15);
+  --mono:'DM Mono',monospace;--sans:'Sora',sans-serif;--radius:10px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{
-  font-family:var(--sans);
-  background:var(--navy);
-  color:var(--white);
-  min-height:100vh;
-  line-height:1.6;
-}
+body{font-family:var(--sans);background:var(--navy);color:var(--white);min-height:100vh;line-height:1.6}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0}
 
-/* ── Grid bg texture ── */
-body::after{
-  content:'';
-  position:fixed;inset:0;
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size:48px 48px;
-  pointer-events:none;z-index:0;
-}
-
-/* ─────────── TOP NAV ─────────── */
-.topnav{
-  position:sticky;top:0;z-index:200;
-  background:rgba(10,22,40,0.92);
-  backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border2);
-  height:58px;
-  display:flex;align-items:center;
-  padding:0 2.5rem;gap:1rem;
-}
+/* NAV */
+.topnav{position:sticky;top:0;z-index:200;background:rgba(10,22,40,0.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--border2);height:58px;display:flex;align-items:center;padding:0 2.5rem;gap:1rem}
 .nav-logo{display:flex;align-items:center;gap:10px}
-.hex{
-  width:30px;height:30px;
-  background:var(--amber);
-  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
-  flex-shrink:0;
-}
+.hex{width:30px;height:30px;background:var(--amber);clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);flex-shrink:0}
 .nav-title{font-family:var(--mono);font-size:13px;font-weight:500;color:var(--white);letter-spacing:.05em;text-transform:uppercase}
 .nav-sub{font-family:var(--mono);font-size:10px;color:var(--gray1)}
-.nav-breadcrumb{
-  margin-left:auto;
-  display:flex;align-items:center;gap:6px;
-  font-family:var(--mono);font-size:11px;color:var(--gray1);
-}
+.nav-breadcrumb{margin-left:auto;display:flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--gray1)}
 .nav-breadcrumb .crumb-active{color:var(--amber)}
 .nav-breadcrumb .sep{color:var(--gray2)}
-.btn-back{
-  display:none;
-  align-items:center;gap:6px;
-  font-family:var(--mono);font-size:11px;
-  color:var(--amber);background:rgba(245,158,11,.08);
-  border:1px solid rgba(245,158,11,.3);
-  padding:5px 12px;border-radius:4px;
-  cursor:pointer;letter-spacing:.04em;
-  transition:background .15s;
-}
+.btn-back{display:none;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;color:var(--amber);background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);padding:5px 12px;border-radius:4px;cursor:pointer;letter-spacing:.04em;transition:background .15s}
 .btn-back:hover{background:rgba(245,158,11,.16)}
 .btn-back svg{width:13px;height:13px}
 
-/* ─────────── SCREENS ─────────── */
+/* SCREENS */
 .screen{position:relative;z-index:1;display:none;animation:fadeUp .25s ease}
 .screen.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-/* ─────────── SCREEN 1 — HOME ─────────── */
-.home-wrap{
-  min-height:calc(100vh - 58px);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  padding:3rem 2rem;
-  gap:3rem;
-}
+/* HOME */
+.home-wrap{min-height:calc(100vh - 58px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem 2rem;gap:3rem}
 .home-hero{text-align:center}
-.home-eyebrow{
-  font-family:var(--mono);font-size:11px;letter-spacing:.14em;
-  color:var(--amber);text-transform:uppercase;margin-bottom:.75rem;
-}
+.home-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--amber);text-transform:uppercase;margin-bottom:.75rem}
 .home-h1{font-size:clamp(28px,5vw,52px);font-weight:700;line-height:1.1;margin-bottom:1rem}
 .home-h1 span{color:var(--amber)}
 .home-desc{font-size:15px;color:var(--gray1);max-width:480px;margin:0 auto;font-weight:300}
-
-.area-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1.5rem;
-  width:100%;max-width:900px;
-}
-.area-card{
-  background:var(--navy2);
-  border:1px solid var(--border2);
-  border-radius:14px;
-  padding:2rem 1.5rem;
-  cursor:pointer;
-  transition:all .2s;
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
-.area-card::before{
-  content:'';
-  position:absolute;inset:0;
-  background:radial-gradient(circle at 50% 0%, rgba(245,158,11,.08) 0%, transparent 60%);
-  opacity:0;transition:opacity .2s;
-}
-.area-card:hover{
-  border-color:var(--amber);
-  transform:translateY(-4px);
-  box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 0 1px rgba(245,158,11,.2);
-}
+.area-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;width:100%;max-width:900px}
+.area-card{background:var(--navy2);border:1px solid var(--border2);border-radius:14px;padding:2rem 1.5rem;cursor:pointer;transition:all .2s;text-align:center;position:relative;overflow:hidden}
+.area-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(245,158,11,.08) 0%,transparent 60%);opacity:0;transition:opacity .2s}
+.area-card:hover{border-color:var(--amber);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.4),0 0 0 1px rgba(245,158,11,.2)}
 .area-card:hover::before{opacity:1}
 .area-card:active{transform:translateY(-2px)}
-.area-icon{
-  width:64px;height:64px;
-  margin:0 auto 1.25rem;
-  border-radius:14px;
-  display:flex;align-items:center;justify-content:center;
-}
+.area-icon{width:64px;height:64px;margin:0 auto 1.25rem;border-radius:14px;display:flex;align-items:center;justify-content:center}
 .area-icon svg{width:32px;height:32px}
 .area-label{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:.25rem}
 .area-sublabel{font-family:var(--mono);font-size:10px;color:var(--gray1)}
-.area-count{
-  margin-top:1rem;
-  font-family:var(--mono);font-size:10px;
-  color:var(--amber);
-  display:inline-flex;align-items:center;gap:5px;
-}
+.area-count{margin-top:1rem;font-family:var(--mono);font-size:10px;color:var(--amber);display:inline-flex;align-items:center;gap:5px}
 .area-count::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--amber)}
 .area-card-auto .area-icon{background:rgba(21,101,192,.2)}
 .area-card-auto .area-icon svg{color:#60A5FA}
@@ -164,202 +66,69 @@ body::after{
 .area-card-espumado .area-icon{background:rgba(245,158,11,.12)}
 .area-card-espumado .area-icon svg{color:var(--amber)}
 
-/* ─────────── SCREEN 2 — AREA DETAIL ─────────── */
+/* DETAIL */
 .detail-wrap{padding:2rem 2.5rem 4rem;max-width:1300px;margin:0 auto}
 .detail-header{margin-bottom:2rem}
-.detail-area-name{
-  font-size:clamp(20px,3vw,32px);font-weight:700;
-  display:flex;align-items:center;gap:12px;margin-bottom:.25rem;
-}
-.detail-area-name .area-pill{
-  font-family:var(--mono);font-size:10px;letter-spacing:.08em;
-  text-transform:uppercase;padding:3px 10px;border-radius:3px;
-  background:rgba(245,158,11,.12);color:var(--amber);
-  border:1px solid rgba(245,158,11,.25);
-  vertical-align:middle;
-}
+.detail-area-name{font-size:clamp(20px,3vw,32px);font-weight:700;display:flex;align-items:center;gap:12px;margin-bottom:.25rem}
+.area-pill{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:3px;background:rgba(245,158,11,.12);color:var(--amber);border:1px solid rgba(245,158,11,.25);vertical-align:middle}
 .detail-sub{font-size:13px;color:var(--gray1);font-weight:300}
+.detail-cols{display:grid;grid-template-columns:300px 1fr;gap:1.5rem;align-items:start}
 
-.detail-cols{
-  display:grid;
-  grid-template-columns:340px 1fr;
-  gap:1.5rem;align-items:start;
-}
-
-/* ── Plan card ── */
-.plan-card{
-  background:var(--navy2);
-  border:1px solid var(--border2);
-  border-radius:var(--radius);
-  overflow:hidden;
-  position:sticky;top:74px;
-}
-.card-top{
-  background:var(--navy3);
-  border-bottom:1px solid var(--border);
-  padding:12px 16px;
-  display:flex;align-items:center;gap:8px;
-}
+/* PLAN CARD */
+.plan-card{background:var(--navy2);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;position:sticky;top:74px}
+.card-top{background:var(--navy3);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;gap:8px}
 .card-top-title{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray1)}
 .card-top svg{width:14px;height:14px;color:var(--amber)}
-.plan-pdf-btn{
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  margin:1rem;
-  padding:10px 14px;
-  background:rgba(245,158,11,.08);
-  border:1px solid rgba(245,158,11,.3);
-  border-radius:6px;
-  color:var(--amber);
-  font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
-  text-decoration:none;cursor:pointer;
-  transition:background .15s;
-}
+.plan-pdf-btn{display:flex;align-items:center;justify-content:center;gap:8px;margin:1rem;padding:10px 14px;background:rgba(245,158,11,.08);border:1px solid rgba(245,158,11,.3);border-radius:6px;color:var(--amber);font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .15s}
 .plan-pdf-btn:hover{background:rgba(245,158,11,.16)}
 .plan-pdf-btn svg{width:16px;height:16px}
-.plan-divider{margin:0 16px;border:none;border-top:1px solid var(--border);margin-bottom:4px}
-.plan-preview-label{
-  font-family:var(--mono);font-size:10px;letter-spacing:.08em;
-  text-transform:uppercase;color:var(--gray2);
-  padding:8px 16px 4px;
-}
-.plan-month-row{
-  display:flex;align-items:center;gap:8px;
-  padding:6px 16px;border-bottom:1px solid var(--border);
-  transition:background .12s;
-}
-.plan-month-row:last-child{border-bottom:none}
-.plan-month-row:hover{background:rgba(255,255,255,.02)}
-.plan-month-label{
-  font-family:var(--mono);font-size:10px;color:var(--gray2);
-  width:32px;flex-shrink:0;letter-spacing:.06em;text-transform:uppercase;
-}
-.plan-tags{display:flex;gap:4px;flex-wrap:wrap;flex:1}
-.ptag{
-  font-family:var(--mono);font-size:9px;padding:2px 6px;border-radius:3px;
-  letter-spacing:.04em;font-weight:500;white-space:nowrap;
-}
-.ptag-pm {background:rgba(30,136,229,.2);color:#90CAF9;border:1px solid rgba(30,136,229,.3)}
-.ptag-pc {background:rgba(5,150,105,.18);color:#6EE7B7;border:1px solid rgba(5,150,105,.3)}
-.ptag-pa {background:rgba(245,158,11,.15);color:var(--amber2);border:1px solid rgba(245,158,11,.3)}
-.ptag-eq{
-  font-family:var(--mono);font-size:9px;padding:2px 6px;
-  border-radius:3px;background:rgba(255,255,255,.06);color:var(--gray1);
-  border:1px solid var(--border);letter-spacing:.03em;
-}
-.plan-legend{
-  padding:10px 16px;border-top:1px solid var(--border);
-  display:flex;gap:10px;flex-wrap:wrap;
-}
-.pleg{display:flex;align-items:center;gap:4px;font-family:var(--mono);font-size:9px;color:var(--gray2)}
+.plan-empty{padding:1.5rem;text-align:center;font-family:var(--mono);font-size:11px;color:var(--gray2);letter-spacing:.06em}
 
-/* ── Equipment list ── */
-.equip-card{
-  background:var(--navy2);
-  border:1px solid var(--border2);
-  border-radius:var(--radius);
-  overflow:hidden;
-}
-.equip-search{
-  display:flex;align-items:center;gap:8px;
-  padding:10px 16px;border-bottom:1px solid var(--border);
-}
+/* EQUIP */
+.equip-card{background:var(--navy2);border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden}
+.equip-legend{display:flex;align-items:center;gap:14px;padding:8px 16px;background:var(--navy3);border-bottom:1px solid var(--border)}
+.eleg{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;color:var(--gray2)}
+.eleg-dot{width:7px;height:7px;border-radius:50%}
+.equip-search{display:flex;align-items:center;gap:8px;padding:10px 16px;border-bottom:1px solid var(--border)}
 .equip-search svg{width:14px;height:14px;color:var(--gray2);flex-shrink:0}
-.equip-search input{
-  flex:1;background:transparent;border:none;outline:none;
-  font-family:var(--mono);font-size:12px;color:var(--white);letter-spacing:.03em;
-}
+.equip-search input{flex:1;background:transparent;border:none;outline:none;font-family:var(--mono);font-size:12px;color:var(--white);letter-spacing:.03em}
 .equip-search input::placeholder{color:var(--gray2)}
-
-.equip-row{
-  display:flex;align-items:center;gap:14px;
-  padding:12px 16px;
-  border-bottom:1px solid var(--border);
-  transition:background .12s;
-  cursor:pointer;
-}
+.equip-row{display:flex;align-items:center;gap:14px;padding:10px 16px;border-bottom:1px solid var(--border);transition:background .12s;cursor:default}
 .equip-row:last-child{border-bottom:none}
 .equip-row:hover{background:rgba(255,255,255,.03)}
-
-.equip-row.is-critical{
-  border-left:3px solid var(--amber);
-  padding-left:13px;
-}
-.equip-row.is-standard{
-  border-left:3px solid transparent;
-}
-
-.equip-ico{
-  width:38px;height:38px;border-radius:8px;
-  display:flex;align-items:center;justify-content:center;flex-shrink:0;
-}
-.equip-ico svg{width:20px;height:20px}
+.equip-row.is-critical{border-left:3px solid var(--amber);padding-left:13px}
+.equip-row.is-standard{border-left:3px solid transparent}
+.equip-ico{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.equip-ico svg{width:18px;height:18px}
 .equip-ico.crit{background:rgba(245,158,11,.12)}
 .equip-ico.crit svg{color:var(--amber)}
 .equip-ico.std{background:rgba(30,136,229,.12)}
 .equip-ico.std svg{color:#60A5FA}
-
 .equip-info{flex:1;min-width:0}
-.equip-name{font-size:14px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.equip-code{font-family:var(--mono);font-size:10px;color:var(--gray1);margin-top:2px;letter-spacing:.05em}
-
-.equip-right{display:flex;align-items:center;gap:8px;flex-shrink:0}
-.tag-crit{
-  display:flex;align-items:center;gap:4px;
-  font-family:var(--mono);font-size:10px;color:var(--amber);
-  background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);
-  padding:3px 8px;border-radius:3px;letter-spacing:.04em;
-}
-.tag-crit svg{width:10px;height:10px}
-.tag-std{
-  font-family:var(--mono);font-size:10px;color:#60A5FA;
-  background:rgba(30,136,229,.1);border:1px solid rgba(30,136,229,.2);
-  padding:3px 8px;border-radius:3px;letter-spacing:.04em;
-}
-.btn-guia{
-  display:flex;align-items:center;gap:5px;
-  font-family:var(--mono);font-size:10px;
-  color:#6EE7B7;
-  background:rgba(5,150,105,.1);border:1px solid rgba(5,150,105,.25);
-  padding:5px 11px;border-radius:4px;
-  text-decoration:none;cursor:pointer;
-  letter-spacing:.04em;transition:background .15s;
-}
+.equip-name{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.equip-code{font-family:var(--mono);font-size:10px;color:var(--gray1);margin-top:1px;letter-spacing:.05em}
+.equip-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.tag-crit{display:flex;align-items:center;gap:3px;font-family:var(--mono);font-size:10px;color:var(--amber);background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.25);padding:3px 7px;border-radius:3px;letter-spacing:.04em}
+.tag-crit svg{width:9px;height:9px}
+.tag-std{font-family:var(--mono);font-size:10px;color:#60A5FA;background:rgba(30,136,229,.1);border:1px solid rgba(30,136,229,.2);padding:3px 7px;border-radius:3px;letter-spacing:.04em}
+.btn-guia{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;color:#6EE7B7;background:rgba(5,150,105,.1);border:1px solid rgba(5,150,105,.25);padding:4px 10px;border-radius:4px;text-decoration:none;cursor:pointer;letter-spacing:.04em;transition:background .15s;white-space:nowrap}
 .btn-guia:hover{background:rgba(5,150,105,.2)}
-.btn-guia svg{width:12px;height:12px}
+.btn-guia svg{width:11px;height:11px;flex-shrink:0}
+.no-guide{font-family:var(--mono);font-size:10px;color:var(--gray2);padding:3px 7px;border:1px dashed var(--border2);border-radius:4px;letter-spacing:.04em;white-space:nowrap}
 
-.no-guide{
-  font-family:var(--mono);font-size:10px;color:var(--gray2);
-  padding:3px 8px;border:1px dashed var(--border2);border-radius:4px;
-  letter-spacing:.04em;
-}
+/* COUNTER badge on equip header */
+.equip-count-badge{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--gray2);letter-spacing:.04em}
 
-/* ── Legend row above list ── */
-.equip-legend{
-  display:flex;align-items:center;gap:14px;
-  padding:8px 16px;background:var(--navy3);border-bottom:1px solid var(--border);
-}
-.eleg{display:flex;align-items:center;gap:5px;font-family:var(--mono);font-size:10px;color:var(--gray2)}
-.eleg-dot{width:7px;height:7px;border-radius:50%}
-
-/* ── Empty placeholder ── */
-.coming-soon{
-  padding:4rem 2rem;text-align:center;
-  background:var(--navy2);border:1px solid var(--border2);border-radius:var(--radius);
-}
+/* COMING SOON */
+.coming-soon{padding:3rem 2rem;text-align:center}
 .coming-icon{opacity:.15;margin-bottom:1rem}
-.coming-icon svg{width:52px;height:52px;color:var(--gray1)}
+.coming-icon svg{width:48px;height:48px;color:var(--gray1)}
 .coming-title{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray1);margin-bottom:.5rem}
 .coming-sub{font-size:13px;color:var(--gray2);font-weight:300}
 
-/* ── Footer ── */
-.site-footer{
-  position:relative;z-index:1;
-  text-align:center;padding:1.5rem;
-  border-top:1px solid var(--border);margin-top:4rem;
-  font-family:var(--mono);font-size:10px;color:var(--gray2);letter-spacing:.06em;
-}
+/* FOOTER */
+.site-footer{position:relative;z-index:1;text-align:center;padding:1.5rem;border-top:1px solid var(--border);margin-top:4rem;font-family:var(--mono);font-size:10px;color:var(--gray2);letter-spacing:.06em}
 
-/* ── Responsive ── */
 @media(max-width:900px){
   .area-grid{grid-template-columns:1fr}
   .detail-cols{grid-template-columns:1fr}
@@ -371,7 +140,6 @@ body::after{
 </head>
 <body>
 
-<!-- ───────────── TOP NAV ───────────── -->
 <nav class="topnav">
   <div class="nav-logo">
     <div class="hex"></div>
@@ -380,16 +148,14 @@ body::after{
       <div class="nav-sub">Planta Cuautitlán</div>
     </div>
   </div>
-  <div class="nav-breadcrumb" id="breadcrumb">
-    <span class="crumb-active">Inicio</span>
-  </div>
-  <button class="btn-back" id="btn-back" onclick="goHome()" aria-label="Regresar al inicio">
+  <div class="nav-breadcrumb" id="breadcrumb"><span class="crumb-active">Inicio</span></div>
+  <button class="btn-back" id="btn-back" onclick="goHome()">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"/></svg>
     Regresar
   </button>
 </nav>
 
-<!-- ═══════════════ SCREEN 1 — HOME ═══════════════ -->
+<!-- ═══ SCREEN HOME ═══ -->
 <div class="screen active" id="screen-home">
   <div class="home-wrap">
     <div class="home-hero">
@@ -397,110 +163,68 @@ body::after{
       <h1 class="home-h1">Mantenimiento<br><span>Preventivo</span></h1>
       <p class="home-desc">Selecciona un área para ver el plan anual y las guías de mantenimiento de cada equipo.</p>
     </div>
-
     <div class="area-grid">
-
-      <!-- AUTOMOTRIZ -->
-      <div class="area-card area-card-auto" onclick="openArea('auto')" role="button" tabindex="0" aria-label="Abrir área automotriz">
+      <div class="area-card area-card-auto" onclick="openArea('auto')" role="button" tabindex="0">
         <div class="area-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-            <path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3"/>
-            <rect x="9" y="11" width="14" height="10" rx="2"/>
-            <circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h11a2 2 0 012 2v3"/><rect x="9" y="11" width="14" height="10" rx="2"/><circle cx="12" cy="21" r="1"/><circle cx="20" cy="21" r="1"/></svg>
         </div>
         <div class="area-label">Área automotriz</div>
         <div class="area-sublabel">Corte y manejo de materiales</div>
-        <div class="area-count" id="cnt-auto">4 equipos registrados</div>
+        <div class="area-count" id="cnt-auto">4 equipos · 2 críticos</div>
       </div>
-
-      <!-- MUEBLERO -->
-      <div class="area-card area-card-mueblero" onclick="openArea('mueblero')" role="button" tabindex="0" aria-label="Abrir área mueblero">
+      <div class="area-card area-card-mueblero" onclick="openArea('mueblero')" role="button" tabindex="0">
         <div class="area-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-            <path d="M20 9V6a2 2 0 00-2-2H6a2 2 0 00-2 2v3"/>
-            <path d="M2 11v5a2 2 0 002 2h16a2 2 0 002-2v-5a1 1 0 00-1-1H3a1 1 0 00-1 1z"/>
-            <path d="M4 18v2M20 18v2M12 4v5"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 9V6a2 2 0 00-2-2H6a2 2 0 00-2 2v3"/><path d="M2 11v5a2 2 0 002 2h16a2 2 0 002-2v-5a1 1 0 00-1-1H3a1 1 0 00-1 1z"/><path d="M4 18v2M20 18v2M12 4v5"/></svg>
         </div>
         <div class="area-label">Área mueblero</div>
         <div class="area-sublabel">Fabricación de muebles</div>
         <div class="area-count" id="cnt-mueblero">Pendiente de registro</div>
       </div>
-
-      <!-- ESPUMADO -->
-      <div class="area-card area-card-espumado" onclick="openArea('espumado')" role="button" tabindex="0" aria-label="Abrir área espumado">
+      <div class="area-card area-card-espumado" onclick="openArea('espumado')" role="button" tabindex="0">
         <div class="area-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
-            <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
-            <path d="M8 12s1.5-2 4-2 4 2 4 2"/>
-            <path d="M9 9h.01M15 9h.01"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M7.5 12.5c1-2 2.5-3 4.5-3s3.5 1 4.5 3"/><circle cx="9" cy="9" r=".5" fill="currentColor"/><circle cx="15" cy="9" r=".5" fill="currentColor"/></svg>
         </div>
         <div class="area-label">Área espumado</div>
         <div class="area-sublabel">Proceso de espumado</div>
-        <div class="area-count" id="cnt-espumado">Pendiente de registro</div>
+        <div class="area-count" id="cnt-espumado">42 equipos · todos críticos</div>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ SCREEN 2 — ÁREA DETAIL ═══════════════ -->
+<!-- ═══ SCREEN DETAIL ═══ -->
 <div class="screen" id="screen-detail">
   <div class="detail-wrap">
-
     <div class="detail-header">
-      <div class="detail-area-name" id="detail-title">
-        Área <span class="area-pill" id="detail-pill"></span>
-      </div>
+      <div class="detail-area-name">Área <span class="area-pill" id="detail-pill"></span></div>
       <div class="detail-sub" id="detail-sub"></div>
     </div>
-
     <div class="detail-cols">
-
-      <!-- LEFT — Plan anual -->
+      <!-- Plan -->
       <div class="plan-card">
         <div class="card-top">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/>
-            <line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-          </svg>
-          <span class="card-top-title">Plan anual</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span class="card-top-title">Plan anual 2025</span>
         </div>
         <a class="plan-pdf-btn" id="plan-pdf-link" href="#" target="_blank">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-            <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-            <polyline points="14 2 14 8 20 8"/>
-            <line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/>
-          </svg>
-          Descargar plan anual (PDF)
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+          Ver / Descargar plan (PDF)
         </a>
-        <hr class="plan-divider">
-        <div class="plan-preview-label">Resumen por mes</div>
-        <div id="plan-months-container"></div>
-        <div class="plan-legend">
-          <div class="pleg"><span class="ptag ptag-pm" style="font-size:8px">PM</span>Preventivo</div>
-          <div class="pleg"><span class="ptag ptag-pc" style="font-size:8px">PC</span>Predictivo</div>
-          <div class="pleg"><span class="ptag ptag-pa" style="font-size:8px">PA</span>Anual</div>
-        </div>
+        <div id="plan-note" style="padding:0 1rem 1rem;font-family:var(--mono);font-size:10px;color:var(--gray2);text-align:center;letter-spacing:.04em;line-height:1.6"></div>
       </div>
-
-      <!-- RIGHT — Equipos -->
+      <!-- Equipos -->
       <div class="equip-card">
         <div class="card-top">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--amber)">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
-          </svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--amber)"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
           <span class="card-top-title">Equipos del área</span>
+          <span class="equip-count-badge" id="equip-counter"></span>
         </div>
         <div class="equip-legend">
-          <div class="eleg"><div class="eleg-dot" style="background:var(--amber)"></div>Equipo crítico</div>
-          <div class="eleg"><div class="eleg-dot" style="background:#60A5FA"></div>Equipo estándar</div>
-          <div class="eleg" style="margin-left:auto">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--green)"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            <span style="color:var(--green)">= guía disponible</span>
+          <div class="eleg"><div class="eleg-dot" style="background:var(--amber)"></div>Crítico</div>
+          <div class="eleg"><div class="eleg-dot" style="background:#60A5FA"></div>Estándar</div>
+          <div class="eleg" style="margin-left:auto;color:var(--green)">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            guía disponible
           </div>
         </div>
         <div class="equip-search">
@@ -509,160 +233,145 @@ body::after{
         </div>
         <div id="equip-list-container"></div>
       </div>
-
     </div>
   </div>
 </div>
 
-<footer class="site-footer">
-  Repositorio PM · Planta Cuautitlán · 2025
-</footer>
+<footer class="site-footer">Repositorio PM · Planta Cuautitlán · 2025</footer>
 
 <script>
-// ─────────────────────────────────────────────────────────────────────────────
-// SVG ICONS
-// ─────────────────────────────────────────────────────────────────────────────
+// ─── ICONS ───────────────────────────────────────────────────────────────────
 const ICO = {
-  crane:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-    <line x1="12" y1="2" x2="12" y2="22"/><line x1="4" y1="6" x2="12" y2="2"/>
-    <line x1="4" y1="6" x2="4" y2="22"/><line x1="4" y1="14" x2="12" y2="14"/>
-    <rect x="2" y="18" width="4" height="4"/></svg>`,
-  saw:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-    <circle cx="12" cy="13" r="8"/>
-    <path d="M12 5V2M12 2l-2 3M12 2l2 3"/>
-    <line x1="12" y1="9" x2="12" y2="13"/><line x1="9.5" y1="10.5" x2="12" y2="13"/>
-    <line x1="14.5" y1="10.5" x2="12" y2="13"/></svg>`,
-  pack:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-    <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/>
-    <polyline points="3.27 6.96 12 12.01 20.73 6.96"/>
-    <line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
-  gear:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-    <circle cx="12" cy="12" r="3"/>
-    <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>`,
-  motor:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-    <rect x="2" y="7" width="16" height="10" rx="2"/>
-    <path d="M18 9h3v6h-3M6 7V5M10 7V5M14 7V5M6 17v2M10 17v2M14 17v2"/></svg>`,
-  alert:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-    <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
-    <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
-  file:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
-    <polyline points="14 2 14 8 20 8"/>
-    <line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
-    <polyline points="10 9 9 9 8 9"/></svg>`,
+  crane:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="2" x2="12" y2="22"/><line x1="4" y1="6" x2="12" y2="2"/><line x1="4" y1="6" x2="4" y2="22"/><line x1="4" y1="14" x2="12" y2="14"/><rect x="2" y="18" width="4" height="4"/></svg>`,
+  saw:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="13" r="8"/><path d="M12 5V2M12 2l-2 3M12 2l2 3"/><line x1="12" y1="9" x2="12" y2="13"/></svg>`,
+  pack:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>`,
+  pipe:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12h20M2 12c0-2.2 1.8-4 4-4h12c2.2 0 4 1.8 4 4M2 12c0 2.2 1.8 4 4 4h12c2.2 0 4-1.8 4-4"/><circle cx="6" cy="12" r="1" fill="currentColor"/><circle cx="18" cy="12" r="1" fill="currentColor"/></svg>`,
+  tank:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="3"/><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="12" y1="3" x2="12" y2="21"/></svg>`,
+  heat:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>`,
+  mix:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a5 5 0 015 5v6a5 5 0 01-10 0V7a5 5 0 015-5z"/><path d="M12 19v3M8 22h8"/><path d="M7 7H5M19 7h-2M7 12H5M19 12h-2"/></svg>`,
+  cut:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>`,
+  belt:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="8" width="20" height="8" rx="4"/><line x1="2" y1="12" x2="22" y2="12"/><circle cx="6" cy="12" r="2" fill="currentColor" stroke="none"/><circle cx="18" cy="12" r="2" fill="currentColor" stroke="none"/></svg>`,
+  hydro:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L6 9h12L12 2z"/><path d="M6 9v8a6 6 0 0012 0V9"/></svg>`,
+  elec:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  hose:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12c0-5 3-9 9-9s9 4 9 9-3 9-9 9"/><path d="M3 12h6M15 12h6"/><path d="M9 12a3 3 0 006 0"/></svg>`,
+  wind:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9.59 4.59A2 2 0 1111 8H2m10.59 11.41A2 2 0 1014 16H2m15.73-8.27A2.5 2.5 0 1119.5 12H2"/></svg>`,
+  wall:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="2" y1="15" x2="22" y2="15"/><line x1="8" y1="9" x2="8" y2="21"/><line x1="16" y1="3" x2="16" y2="15"/></svg>`,
+  reel:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><line x1="12" y1="3" x2="12" y2="9"/><line x1="12" y1="15" x2="12" y2="21"/><line x1="3" y1="12" x2="9" y2="12"/><line x1="15" y1="12" x2="21" y2="12"/></svg>`,
+  gear:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>`,
+  alert:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`,
+  file:`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>`,
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// ██  DATA — edita aquí para agregar áreas, equipos y plan anual  ██
+// DATA
+// Rutas relativas a como queden en tu repo de GitHub:
+//   guias/nombre-del-archivo.pdf   ← guías individuales
+//   planes/Plan_Anual_XXX.pdf      ← planes anuales
 // ─────────────────────────────────────────────────────────────────────────────
 const AREAS = {
+
+  // ══════════════════════════════════════════════════════
   auto: {
-    label: 'Automotriz',
-    sub:   'Corte y manejo de materiales automotrices',
-    planPDF: 'planes/Plan_Anual_Automotriz_2025.pdf',   // ← ruta del PDF en tu repo
-    plan: [
-      { m:'ENE', items:[{t:'PM',k:'pm',eq:'GV'},{t:'PM',k:'pm',eq:'SV'}] },
-      { m:'FEB', items:[{t:'PC',k:'pc',eq:'SH'}] },
-      { m:'MAR', items:[{t:'PM',k:'pm',eq:'GV'},{t:'PM',k:'pm',eq:'RP'}] },
-      { m:'ABR', items:[{t:'PM',k:'pm',eq:'SV'}] },
-      { m:'MAY', items:[{t:'PM',k:'pm',eq:'GV'},{t:'PC',k:'pc',eq:'SH'}] },
-      { m:'JUN', items:[{t:'PM',k:'pm',eq:'RP'}] },
-      { m:'JUL', items:[{t:'PM',k:'pm',eq:'GV'},{t:'PM',k:'pm',eq:'SV'}] },
-      { m:'AGO', items:[{t:'PC',k:'pc',eq:'GV'},{t:'PA',k:'pa',eq:'RP'}] },
-      { m:'SEP', items:[{t:'PM',k:'pm',eq:'SH'}] },
-      { m:'OCT', items:[{t:'PM',k:'pm',eq:'GV'},{t:'PM',k:'pm',eq:'RP'}] },
-      { m:'NOV', items:[{t:'PM',k:'pm',eq:'SV'}] },
-      { m:'DIC', items:[{t:'PM',k:'pm',eq:'GV'},{t:'PC',k:'pc',eq:'SH'}] },
-    ],
-    equipos: [
-      {
-        name:     'Grúa viajera F&K',
-        code:     'COD-GV-001',
-        tag:      'GV',
-        critical: true,
-        icon:     'crane',
-        guide:    'guias/Guia_PM_GRUA_VIAJERA_v2.docx',  // ← ruta al archivo en tu repo
-      },
-      {
-        name:     'Sierra vertical F52-2',
-        code:     'TFFK-F52-2',
-        tag:      'SV',
-        critical: false,
-        icon:     'saw',
-        guide:    'guias/Guia_PM_Sierra_Vertical_F52-2.docx',
-      },
-      {
-        name:     'Sierra horizontal C67-1',
-        code:     'TFFK-C67-1',
-        tag:      'SH',
-        critical: false,
-        icon:     'saw',
-        guide:    'guias/Guia_PM_Sierra_Horizontal_C67-1.docx',
-      },
-      {
-        name:     'Empacadora Roll Pack 230',
-        code:     'FIL-RP-230',
-        tag:      'RP',
-        critical: true,
-        icon:     'pack',
-        guide:    'guias/Guia_PM_RollPack230_Filmatic.docx',
-      },
+    label:'Automotriz',
+    sub:'Corte y manejo de materiales automotrices',
+    planPDF:'planes/Plan_Anual_Automotriz_2025.pdf',
+    planNote:'El plan anual completo con calendario mensual está disponible en el PDF adjunto.',
+    equipos:[
+      { name:'Grúa viajera F&K',        code:'COD-GV-001', critical:true,  icon:'crane', guide:'guias/Guia_PM_GRUA_VIAJERA_v2.docx' },
+      { name:'Sierra vertical F52-2',    code:'TFFK-F52-2', critical:false, icon:'saw',   guide:'guias/Guia_PM_Sierra_Vertical_F52-2.docx' },
+      { name:'Sierra horizontal C67-1',  code:'TFFK-C67-1', critical:false, icon:'saw',   guide:'guias/Guia_PM_Sierra_Horizontal_C67-1.docx' },
+      { name:'Empacadora Roll Pack 230', code:'FIL-RP-230',  critical:true,  icon:'pack',  guide:'guias/Guia_PM_RollPack230_Filmatic.docx' },
     ],
   },
 
-  // ── Agrega aquí los datos cuando los tengas ──────────────────────────────
+  // ══════════════════════════════════════════════════════
   mueblero: {
-    label:   'Mueblero',
-    sub:     'Fabricación de muebles',
-    planPDF: 'planes/Plan_Anual_Mueblero_2025.pdf',
-    plan:    [],   // ← llenar con el mismo formato que 'auto'
-    equipos: [],   // ← llenar con el mismo formato que 'auto'
+    label:'Mueblero',
+    sub:'Fabricación de muebles',
+    planPDF:'planes/Plan_Anual_Mueblero_2025.pdf',
+    planNote:'Pendiente de carga.',
+    equipos:[],
   },
 
+  // ══════════════════════════════════════════════════════
   espumado: {
-    label:   'Espumado',
-    sub:     'Proceso de espumado',
-    planPDF: 'planes/Plan_Anual_Espumado_2025.pdf',
-    plan:    [],
-    equipos: [],
+    label:'Espumado',
+    sub:'Proceso de espumado — todos los equipos clasificados como críticos',
+    planPDF:'planes/Plan_Anual_Espumado_2025.pdf',
+    planNote:'El plan anual completo con calendario mensual está disponible en el PDF adjunto.',
+    equipos:[
+      // ── Líneas de retardante / poliol / TDI ─────────────────────────────
+      { name:'Línea de retardante TDCP proceso',     code:'ESP-001', critical:true, icon:'pipe',  guide:'guias/ESP-001_Retardante_TDCP_Proceso.pdf' },
+      { name:'Línea descarga poliol estándar',        code:'ESP-002', critical:true, icon:'pipe',  guide:'guias/ESP-002_Descarga_Poliol_Estandar.pdf' },
+      { name:'Línea descarga poliol estándar anual',  code:'ESP-003', critical:true, icon:'pipe',  guide:'guias/ESP-003_Descarga_Poliol_Estandar_Anual.pdf' },
+      { name:'Poliol estándar proceso',               code:'ESP-004', critical:true, icon:'tank',  guide:'guias/ESP-004_Poliol_Estandar_Proceso.pdf' },
+      { name:'Línea descarga poliol graft',           code:'ESP-005', critical:true, icon:'pipe',  guide:'guias/ESP-005_Descarga_Poliol_Graft.pdf' },
+      { name:'Línea descarga poliol graft anual',     code:'ESP-006', critical:true, icon:'pipe',  guide:'guias/ESP-006_Descarga_Poliol_Graft_Anual.pdf' },
+      { name:'Poliol graft proceso',                  code:'ESP-007', critical:true, icon:'tank',  guide:'guias/ESP-007_Poliol_Graft_Proceso.pdf' },
+      { name:'Línea descarga poliol aditivo',         code:'ESP-008', critical:true, icon:'pipe',  guide:'guias/ESP-008_Descarga_Poliol_Aditivo.pdf' },
+      { name:'Línea descarga poliol aditivo anual',   code:'ESP-009', critical:true, icon:'pipe',  guide:'guias/ESP-009_Descarga_Poliol_Aditivo_Anual.pdf' },
+      { name:'Poliol aditivo proceso',                code:'ESP-010', critical:true, icon:'tank',  guide:'guias/ESP-010_Poliol_Aditivo_Proceso.pdf' },
+      { name:'Línea descarga TDI',                    code:'ESP-011', critical:true, icon:'pipe',  guide:'guias/ESP-011_Descarga_TDI.pdf' },
+      { name:'Línea descarga TDI anual',              code:'ESP-012', critical:true, icon:'pipe',  guide:'guias/ESP-012_Descarga_TDI_Anual.pdf' },
+      { name:'TDI proceso',                           code:'ESP-013', critical:true, icon:'tank',  guide:'guias/ESP-013_TDI_Proceso.pdf' },
+      // ── Poliol viscoelástica / intercambiadores ──────────────────────────
+      { name:'Línea de poliol p/viscoelástica',       code:'ESP-014', critical:true, icon:'pipe',  guide:'guias/ESP-014_Poliol_Viscoelastica.pdf' },
+      { name:'Intercambiadores de calor',             code:'ESP-015', critical:true, icon:'heat',  guide:'guias/ESP-015_Intercambiadores_Calor.pdf' },
+      // ── Pigmentos ────────────────────────────────────────────────────────
+      { name:'Pigmentos 13-18',                       code:'ESP-016', critical:true, icon:'tank',  guide:'guias/ESP-016_Pigmentos_13-18.pdf' },
+      { name:'Pigmentos 13-18 mantenimiento mayor',   code:'ESP-017', critical:true, icon:'tank',  guide:'guias/ESP-017_Pigmentos_13-18_Mayor.pdf' },
+      // ── Aditivos ─────────────────────────────────────────────────────────
+      { name:'T-9',                                   code:'ESP-018', critical:true, icon:'tank',  guide:'guias/ESP-018_T9.pdf' },
+      { name:'T-9 mantenimiento mayor',               code:'ESP-019', critical:true, icon:'tank',  guide:'guias/ESP-019_T9_Mayor.pdf' },
+      { name:'Vanquish 100',                          code:'ESP-020', critical:true, icon:'tank',  guide:'guias/ESP-020_Vanquish100.pdf' },
+      { name:'Agua',                                  code:'ESP-021', critical:true, icon:'tank',  guide:'guias/ESP-021_Agua.pdf' },
+      { name:'Amina',                                 code:'ESP-022', critical:true, icon:'tank',  guide:'guias/ESP-022_Amina.pdf' },
+      { name:'Silicon',                               code:'ESP-023', critical:true, icon:'tank',  guide:'guias/ESP-023_Silicon.pdf' },
+      { name:'Pro-1',                                 code:'ESP-024', critical:true, icon:'tank',  guide:'guias/ESP-024_Pro1.pdf' },
+      // ── Tanques comodín ──────────────────────────────────────────────────
+      { name:'Línea de tanque comodín 1',             code:'ESP-025', critical:true, icon:'pipe',  guide:'guias/ESP-025_Tanque_Comodin_1.pdf' },
+      { name:'Línea de tanque comodín 2',             code:'ESP-026', critical:true, icon:'pipe',  guide:'guias/ESP-026_Tanque_Comodin_2.pdf' },
+      { name:'Línea de tanque comodín 3',             code:'ESP-027', critical:true, icon:'pipe',  guide:'guias/ESP-027_Tanque_Comodin_3.pdf' },
+      // ── Mezclador / RS's ─────────────────────────────────────────────────
+      { name:'Mezclador y vai-vén',                   code:'ESP-028', critical:true, icon:'mix',   guide:'guias/ESP-028_Mezclador_VaiVen.pdf' },
+      { name:'Mezclador y vai-vén mantenimiento mayor',code:'ESP-029',critical:true, icon:'mix',   guide:'guias/ESP-029_Mezclador_VaiVen_Mayor.pdf' },
+      { name:"Sistema de RS's",                       code:'ESP-030', critical:true, icon:'gear',  guide:"guias/ESP-030_Sistema_RS.pdf" },
+      { name:"Sistema de RS's mantenimiento mayor",   code:'ESP-031', critical:true, icon:'gear',  guide:"guias/ESP-031_Sistema_RS_Mayor.pdf" },
+      // ── Línea de corte ───────────────────────────────────────────────────
+      { name:'Discos de corte',                       code:'ESP-032', critical:true, icon:'cut',   guide:'guias/ESP-032_Discos_Corte.pdf' },
+      { name:'Extractor',                             code:'ESP-033', critical:true, icon:'wind',  guide:'guias/ESP-033_Extractor.pdf' },
+      { name:'Apertura de paredes',                   code:'ESP-034', critical:true, icon:'wall',  guide:'guias/ESP-034_Apertura_Paredes.pdf' },
+      { name:'Bandas',                                code:'ESP-035', critical:true, icon:'belt',  guide:'guias/ESP-035_Bandas.pdf' },
+      { name:'Seccionadora',                          code:'ESP-036', critical:true, icon:'cut',   guide:'guias/ESP-036_Seccionadora.pdf' },
+      { name:'Transportadores',                       code:'ESP-037', critical:true, icon:'belt',  guide:'guias/ESP-037_Transportadores.pdf' },
+      // ── Sistemas ─────────────────────────────────────────────────────────
+      { name:'Sistema hidráulico',                    code:'ESP-038', critical:true, icon:'hydro', guide:'guias/ESP-038_Sistema_Hidraulico.pdf' },
+      { name:'Sistema neumático',                     code:'ESP-039', critical:true, icon:'wind',  guide:'guias/ESP-039_Sistema_Neumatico.pdf' },
+      { name:'Sistema mecánico',                      code:'ESP-040', critical:true, icon:'gear',  guide:'guias/ESP-040_Sistema_Mecanico.pdf' },
+      { name:'Embobinadores',                         code:'ESP-041', critical:true, icon:'reel',  guide:'guias/ESP-041_Embobinadores.pdf' },
+      { name:'Sistema eléctrico y electrónico',       code:'ESP-042', critical:true, icon:'elec',  guide:'guias/ESP-042_Sistema_Electrico.pdf' },
+      { name:'Mangueras (revisión y cambio)',          code:'ESP-043', critical:true, icon:'hose',  guide:'guias/ESP-043_Mangueras.pdf' },
+    ],
   },
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
 // NAVIGATION
 // ─────────────────────────────────────────────────────────────────────────────
-let currentArea = null;
-
-function openArea(areaKey) {
-  const area = AREAS[areaKey];
+function openArea(key) {
+  const area = AREAS[key];
   if (!area) return;
-  currentArea = areaKey;
-
-  // Switch screens
   document.getElementById('screen-home').classList.remove('active');
   document.getElementById('screen-detail').classList.add('active');
-
-  // Nav state
   document.getElementById('breadcrumb').innerHTML =
     `<span>Inicio</span><span class="sep">/</span><span class="crumb-active">${area.label}</span>`;
   document.getElementById('btn-back').style.display = 'flex';
-
-  // Header
-  document.getElementById('detail-title').innerHTML =
-    `Área <span class="area-pill">${area.label.toUpperCase()}</span>`;
+  document.getElementById('detail-pill').textContent = area.label.toUpperCase();
   document.getElementById('detail-sub').textContent = area.sub;
-
-  // Plan PDF button
-  const pdfLink = document.getElementById('plan-pdf-link');
-  pdfLink.href = area.planPDF;
-
-  // Plan months
-  renderPlan(area);
-
-  // Equipment list
+  document.getElementById('plan-pdf-link').href = area.planPDF;
+  document.getElementById('plan-note').textContent = area.planNote || '';
   document.getElementById('equip-search-input').value = '';
   renderEquip(area);
-
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
@@ -671,63 +380,39 @@ function goHome() {
   document.getElementById('screen-home').classList.add('active');
   document.getElementById('breadcrumb').innerHTML = `<span class="crumb-active">Inicio</span>`;
   document.getElementById('btn-back').style.display = 'none';
-  currentArea = null;
   window.scrollTo({top:0, behavior:'smooth'});
 }
 
-// Keyboard support for area cards
 document.querySelectorAll('.area-card').forEach(card => {
-  card.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click(); }
-  });
+  card.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' '){e.preventDefault();card.click()} });
 });
 
 // ─────────────────────────────────────────────────────────────────────────────
-// RENDER — PLAN
-// ─────────────────────────────────────────────────────────────────────────────
-function renderPlan(area) {
-  const container = document.getElementById('plan-months-container');
-
-  if (!area.plan || area.plan.length === 0) {
-    container.innerHTML = `
-      <div style="padding:2rem;text-align:center;color:var(--gray2);font-family:var(--mono);font-size:11px;letter-spacing:.06em">
-        PLAN ANUAL PENDIENTE DE CARGA
-      </div>`;
-    return;
-  }
-
-  container.innerHTML = area.plan.map(row => `
-    <div class="plan-month-row">
-      <span class="plan-month-label">${row.m}</span>
-      <div class="plan-tags">
-        ${row.items.map(it => `
-          <span class="ptag ptag-${it.k}">${it.t}</span>
-          <span class="ptag-eq">${it.eq}</span>
-        `).join('')}
-      </div>
-    </div>`).join('');
-}
-
-// ─────────────────────────────────────────────────────────────────────────────
-// RENDER — EQUIPOS
+// RENDER EQUIPOS
 // ─────────────────────────────────────────────────────────────────────────────
 function renderEquip(area) {
   const container = document.getElementById('equip-list-container');
+  const counter   = document.getElementById('equip-counter');
 
   if (!area.equipos || area.equipos.length === 0) {
+    counter.textContent = '';
     container.innerHTML = `
       <div class="coming-soon">
         <div class="coming-icon">${ICO.gear}</div>
         <div class="coming-title">Sin equipos registrados</div>
-        <div class="coming-sub">Proporciona la lista de equipos<br>para poblar esta área.</div>
+        <div class="coming-sub">Proporciona la lista de equipos para poblar esta área.</div>
       </div>`;
     return;
   }
 
+  const total = area.equipos.length;
+  const crits = area.equipos.filter(e => e.critical).length;
+  counter.textContent = `${total} equipos · ${crits} críticos`;
+
   container.innerHTML = area.equipos.map(e => `
-    <div class="equip-row ${e.critical ? 'is-critical' : 'is-standard'}"
+    <div class="equip-row ${e.critical?'is-critical':'is-standard'}"
          data-search="${e.name.toLowerCase()} ${e.code.toLowerCase()}">
-      <div class="equip-ico ${e.critical ? 'crit' : 'std'}">${ICO[e.icon] || ICO.gear}</div>
+      <div class="equip-ico ${e.critical?'crit':'std'}">${ICO[e.icon]||ICO.gear}</div>
       <div class="equip-info">
         <div class="equip-name">${e.name}</div>
         <div class="equip-code">${e.code}</div>
@@ -735,47 +420,20 @@ function renderEquip(area) {
       <div class="equip-right">
         ${e.critical
           ? `<span class="tag-crit">${ICO.alert}Crítico</span>`
-          : `<span class="tag-std">Estándar</span>`
-        }
+          : `<span class="tag-std">Estándar</span>`}
         ${e.guide
-          ? `<a class="btn-guia" href="${e.guide}" target="_blank" title="Abrir guía de mantenimiento">
-               ${ICO.file} Guía
-             </a>`
-          : `<span class="no-guide">Sin guía</span>`
-        }
+          ? `<a class="btn-guia" href="${e.guide}" target="_blank">${ICO.file} Guía</a>`
+          : `<span class="no-guide">Sin guía</span>`}
       </div>
     </div>`).join('');
-
-  updateHomeCount();
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// SEARCH / FILTER
-// ─────────────────────────────────────────────────────────────────────────────
 function filterEquip(input) {
   const q = input.value.toLowerCase();
-  document.querySelectorAll('#equip-list-container .equip-row').forEach(row => {
-    row.style.display = row.dataset.search.includes(q) ? '' : 'none';
+  document.querySelectorAll('#equip-list-container .equip-row').forEach(r => {
+    r.style.display = r.dataset.search.includes(q) ? '' : 'none';
   });
 }
-
-// ─────────────────────────────────────────────────────────────────────────────
-// UPDATE HOME COUNTERS
-// ─────────────────────────────────────────────────────────────────────────────
-function updateHomeCount() {
-  Object.entries(AREAS).forEach(([key, area]) => {
-    const el = document.getElementById('cnt-' + key);
-    if (!el) return;
-    if (area.equipos && area.equipos.length > 0) {
-      const crits = area.equipos.filter(e => e.critical).length;
-      el.textContent = `${area.equipos.length} equipos · ${crits} crítico${crits !== 1 ? 's' : ''}`;
-    } else {
-      el.textContent = 'Pendiente de registro';
-    }
-  });
-}
-
-updateHomeCount();
 </script>
 </body>
 </html>
